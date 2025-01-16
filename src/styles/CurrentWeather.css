@@ -3,6 +3,7 @@
 	flex-direction: column;
 	gap: 12px;
 	width: 30%;
+	height: 210px;
 	background-color: #20293A;
 	border-radius: 16px;
 	padding: 24px 20px;
@@ -52,4 +53,22 @@
 .current-feellike {
 	font-size: 0.85rem;
 	font-weight: 300;
+}
+
+@media (max-width: 1024px) {
+	.current-weather {
+		width: 40%;
+	}
+}
+
+@media (max-width: 850px) {
+	.current-weather {
+		width: 100%;
+	}
+}
+
+@media (max-width: 420px) {
+	.current-weather {
+		padding: 16px 12px;
+	}
 }

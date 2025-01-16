@@ -42,3 +42,15 @@
 	align-items: center;
 	gap: 12px;
 }
+
+@media (max-width: 1024px) {
+	.city-weather {
+		width: 40%;
+	}
+}
+
+@media (max-width: 850px) {
+	.city-weather {
+		width: 100%;
+	}
+}

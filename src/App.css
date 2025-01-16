@@ -5,8 +5,26 @@
 	padding: 28px;
 }
 
-.weather-forecast {
+.first-weather-forecast {
+	display: flex;
+	align-items: center;
+	gap: 44px;
+	width: 100%;
+}
+
+.second-weather-forecast {
 	display: flex;
 	gap: 44px;
 	width: 100%;
+}
+
+@media (max-width: 850px) {
+	.weather-app {
+		padding: 20px;
+	}
+
+	.first-weather-forecast,
+	.second-weather-forecast {
+		flex-direction: column;
+	}
 }

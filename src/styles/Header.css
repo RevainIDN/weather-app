@@ -113,3 +113,19 @@
 .switch-input:not(:checked)+.switch-slider .switch-text-left {
 	color: #000000;
 }
+
+@media (max-width: 420px) {
+	.header {
+		flex-direction: column;
+		gap: 16px;
+		align-items: end;
+	}
+
+	.input-cont {
+		width: 100%;
+	}
+
+	.input {
+		width: 100%;
+	}
+}

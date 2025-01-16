@@ -12,11 +12,11 @@ export default function App() {
   return (
     <div className='weather-app'>
       <Header />
-      <div className='weather-forecast'>
+      <div className='first-weather-forecast'>
         <CurrentWeather />
         <HourlyForecast />
       </div>
-      <div className='weather-forecast'>
+      <div className='second-weather-forecast'>
         <CityWeather />
         <DailyForecast />
       </div>
