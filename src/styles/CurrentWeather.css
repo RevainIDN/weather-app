@@ -1,0 +1,55 @@
+.current-weather {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 30%;
+	background-color: #20293A;
+	border-radius: 16px;
+	padding: 24px 20px;
+}
+
+.current-weather-degrees,
+.current-weather-info,
+.current-weather-feellike {
+	display: flex;
+	justify-content: space-between;
+}
+
+.current-degree {
+	font-size: 4.5rem;
+	line-height: 1;
+}
+
+.current-name-cont {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+
+.current-weather-cont {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.current-weather-img {
+	width: 48px;
+}
+
+.current-wind-img {
+	width: 28px;
+}
+
+.current-weather-text {
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+.current-wind {
+	font-size: 1.25rem;
+}
+
+.current-feellike {
+	font-size: 0.85rem;
+	font-weight: 300;
+}

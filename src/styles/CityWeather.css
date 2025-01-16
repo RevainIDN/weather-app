@@ -1,0 +1,44 @@
+.city-weather {
+	width: 30%;
+}
+
+.forecast-title {
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+}
+
+.cities-list {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.city-item {
+	display: flex;
+	justify-content: space-between;
+	background-color: #20293A;
+	padding: 20px;
+	border-radius: 16px;
+}
+
+.city-weather-country {
+	font-size: 0.85rem;
+	font-weight: 400;
+	color: #8991a1;
+}
+
+.city-weather-town {
+	margin: 4px 0 12px 0;
+}
+
+.city-weather-condition {
+	font-size: 0.85rem;
+	font-weight: 400;
+}
+
+.city-weather-info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}

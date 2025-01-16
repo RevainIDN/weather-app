@@ -1,0 +1,43 @@
+.hourly-forecast-list {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+	width: 70%;
+}
+
+.hourly-forecast-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 80px;
+	background-color: #20293A;
+	border-radius: 16px;
+	padding: 16px 8px 0 8px;
+}
+
+.item-weather-time {
+	font-size: 1rem;
+	font-size: 0.85rem;
+}
+
+.item-weather-cont {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 4px;
+	margin-top: 16px;
+	padding-top: 12px;
+	border-top: 2px #030616 solid;
+}
+
+.item-weather-title {
+	font-size: 0.85rem;
+	font-weight: 400;
+}
+
+.item-weather-degree {
+	font-size: 2.5rem;
+	line-height: 1;
+	padding: 15px 0 15px 0;
+}

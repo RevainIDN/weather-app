@@ -1,0 +1,60 @@
+.daily-forecast {
+	width: 70%;
+}
+
+.daily-forecast-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.daily-forecast-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #20293A;
+	border-radius: 16px;
+	padding: 12px 20px;
+}
+
+.forecast-day {
+	font-size: 1.5rem;
+}
+
+.forecast-weather-cont,
+.forecast-degrees-cont {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.forecast-weather {
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+.forecast-degrees-cont {
+	width: 50%;
+}
+
+.forecast-degree {
+	font-size: 1.25rem;
+}
+
+.forecast-scale {
+	position: relative;
+	background-color: #030616;
+	width: 100%;
+	padding: 3px 0;
+	border-radius: 16px;
+}
+
+.forecast-under-scale {
+	position: absolute;
+	background-color: #4E80EE;
+	top: 0;
+	left: 20%;
+	width: 50%;
+	padding: 3px 0;
+	border-radius: 16px;
+}
