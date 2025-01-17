@@ -12,6 +12,8 @@
 	position: absolute;
 	top: 50%;
 	left: 8px;
+	width: 26px;
+	height: 26px;
 	transform: translateY(-50%);
 }
 

@@ -34,6 +34,8 @@ li {
 img {
 	display: block;
 	max-width: 100%;
+	width: 54px;
+	height: 54px;
 }
 
 input,
