@@ -19,6 +19,7 @@ export interface CurrentCityDatas {
 	id: number;
 	main: CurrentTemperatureInformation;
 	name: string;
+	timezone: number,
 	weather: CurrentWeatherInformation[];
 	wind: CurrentWindInformation;
 }
@@ -50,6 +51,7 @@ export function transformCurrentWeatherData(data: any): CurrentCityDatas {
 			temp_min: data.main.temp_min,
 		},
 		name: data.name,
+		timezone: data.timezone,
 		weather: data.weather.map((item: any) => ({
 			icon: item.icon,
 			main: item.main,
