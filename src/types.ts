@@ -19,13 +19,14 @@ export interface CurrentCityDatas {
 	id: number;
 	main: CurrentTemperatureInformation;
 	name: string;
-	timezone: number,
+	timezone: number;
 	weather: CurrentWeatherInformation[];
 	wind: CurrentWindInformation;
 }
 
 interface ForecastCityInfo {
 	name: string;
+	timezone: number;
 }
 
 interface ForecastList {
@@ -66,6 +67,7 @@ export function transformForecastWeatherData(data: any): ForecastCityDatas {
 	return {
 		city: {
 			name: data.city.name,
+			timezone: data.city.timezone,
 		},
 		list: data.list.map((item: any) => ({
 			dt: item.dt,
