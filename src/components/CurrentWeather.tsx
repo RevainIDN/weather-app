@@ -4,9 +4,10 @@ import { formatTime } from '../GeneralFunctions';
 
 interface CurrentWeatherProps {
 	currentWeatherData: CurrentCityDatas | null;
+	units: 'metric' | 'imperial';
 }
 
-export default function CurrentWeather({ currentWeatherData }: CurrentWeatherProps) {
+export default function CurrentWeather({ currentWeatherData, units }: CurrentWeatherProps) {
 	const formattedTime = currentWeatherData
 		? formatTime(currentWeatherData.dt, currentWeatherData.timezone)
 		: '';
@@ -31,7 +32,7 @@ export default function CurrentWeather({ currentWeatherData }: CurrentWeatherPro
 				</div>
 			</div>
 			<div className='current-weather-feellike'>
-				<h2 className='current-feellike'>Feel like: {Math.round(currentWeatherData?.main.feels_like || 0)} °C</h2>
+				<h2 className='current-feellike'>Feel like: {Math.round(currentWeatherData?.main.feels_like || 0)} {units === 'metric' ? '°C' : '°F'}</h2>
 				<h2 className='current-feellike'>{Math.round(currentWeatherData?.main.temp_min || 0)}° to {Math.round(currentWeatherData?.main.temp_max || 0)}°</h2>
 			</div>
 		</div>
