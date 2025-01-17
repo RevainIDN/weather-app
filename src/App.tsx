@@ -62,8 +62,11 @@ export default function App() {
       <div className='first-weather-forecast'>
         <CurrentWeather
           currentWeatherData={currentWeatherData}
+          units={units}
         />
-        <HourlyForecast />
+        <HourlyForecast
+          forecastWeatherData={forecastWeatherData}
+        />
       </div>
       <div className='second-weather-forecast'>
         <CityWeather />
