@@ -60,7 +60,9 @@ export default function App() {
         handleChange={handleChange}
       />
       <div className='first-weather-forecast'>
-        <CurrentWeather />
+        <CurrentWeather
+          currentWeatherData={currentWeatherData}
+        />
         <HourlyForecast />
       </div>
       <div className='second-weather-forecast'>

@@ -1,28 +1,38 @@
 import '../styles/CurrentWeather.css'
+import { CurrentCityDatas } from '../types'
+import { formatTime } from '../GeneralFunctions';
 
-export default function CurrentWeather() {
+interface CurrentWeatherProps {
+	currentWeatherData: CurrentCityDatas | null;
+}
+
+export default function CurrentWeather({ currentWeatherData }: CurrentWeatherProps) {
+	const formattedTime = currentWeatherData
+		? formatTime(currentWeatherData.dt, currentWeatherData.timezone)
+		: '';
+
 	return (
 		<div className='current-weather'>
 			<div className='current-weather-degrees'>
-				<h1 className='current-degree'>-1°</h1>
+				<h1 className='current-degree'>{Math.round(currentWeatherData?.main.temp || 0)}°</h1>
 				<div className='current-name-cont'>
-					<h2 className='current-name'>Helsinki</h2>
-					<small className='current-time'>11:45 AM</small>
+					<h2 className='current-name'>{currentWeatherData?.name}</h2>
+					<small className='current-time'>{formattedTime}</small>
 				</div>
 			</div>
 			<div className='current-weather-info'>
 				<div className='current-weather-cont'>
-					<img className='current-weather-img' src="13d.png" alt="" />
-					<h2 className='current-weather-text city-weather'>Snow</h2>
+					<img className='current-weather-img' src={`${currentWeatherData?.weather[0].icon}.png`} alt="" />
+					<h2 className='current-weather-text city-weather'>{currentWeatherData?.weather[0].main}</h2>
 				</div>
 				<div className='current-weather-cont'>
 					<img className='current-wind-img' src="wind.png" alt="" />
-					<h2 className='current-wetahter-text city-wind'>5.14 m/s</h2>
+					<h2 className='current-weather-text city-wind'>{currentWeatherData?.wind.speed} m/s</h2>
 				</div>
 			</div>
 			<div className='current-weather-feellike'>
-				<h2 className='current-feellike'>Feel like: -4 °C</h2>
-				<h2 className='current-feellike'>-1° to 3°</h2>
+				<h2 className='current-feellike'>Feel like: {Math.round(currentWeatherData?.main.feels_like || 0)} °C</h2>
+				<h2 className='current-feellike'>{Math.round(currentWeatherData?.main.temp_min || 0)}° to {Math.round(currentWeatherData?.main.temp_max || 0)}°</h2>
 			</div>
 		</div>
 	)
