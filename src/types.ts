@@ -41,6 +41,17 @@ export interface ForecastCityDatas {
 	list: ForecastList[];
 }
 
+interface CitiDataSys {
+	country: string;
+}
+
+export interface CitiDatas {
+	main: Pick<CurrentTemperatureInformation, 'temp'>;
+	name: string;
+	sys: CitiDataSys;
+	weather: CurrentWeatherInformation[];
+}
+
 export function transformCurrentWeatherData(data: any): CurrentCityDatas {
 	return {
 		dt: data.dt,
@@ -83,5 +94,21 @@ export function transformForecastWeatherData(data: any): ForecastCityDatas {
 				main: item.main,
 			}))
 		}))
+	};
+}
+
+export function transformCitiDatas(data: any): CitiDatas {
+	return {
+		main: {
+			temp: data.main.temp,
+		},
+		name: data.name,
+		sys: {
+			country: data.sys.country,
+		},
+		weather: data.weather.map((item: any) => ({
+			icon: item.icon,
+			main: item.main,
+		})),
 	};
 }
