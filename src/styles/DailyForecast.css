@@ -17,8 +17,20 @@
 	padding: 12px 20px;
 }
 
+.forecast-info-cont {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex: 1.5;
+}
+
 .forecast-day {
+	flex: 0.8;
 	font-size: 1.5rem;
+}
+
+.forecast-weather-cont {
+	flex: 1;
 }
 
 .forecast-weather-cont,
@@ -29,12 +41,12 @@
 }
 
 .forecast-weather {
-	font-size: 1rem;
+	font-size: 0.85rem;
 	font-weight: 400;
 }
 
 .forecast-degrees-cont {
-	width: 50%;
+	flex: 2.5;
 }
 
 .forecast-degree {
@@ -61,7 +73,15 @@
 
 @media (max-width: 1024px) {
 	.daily-forecast {
-		width: 60%;
+		width: 65%;
+	}
+
+	.forecast-day {
+		flex: 0.6;
+	}
+
+	.forecast-degrees-cont {
+		flex: 2;
 	}
 }
 
@@ -73,7 +93,27 @@
 
 @media (max-width: 530px) {
 	.daily-forecast-item {
+		flex-direction: column;
 		flex-wrap: wrap;
+	}
+
+	.forecast-info-cont {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	.forecast-day {
+		flex: 0;
+	}
+
+	.forecast-weather-cont {
+		flex: 0;
+		padding-right: 50px;
+	}
+
+	.forecast-weather-cont img {
+		width: 36px;
+		height: 36px;
 	}
 
 	.forecast-degrees-cont {
