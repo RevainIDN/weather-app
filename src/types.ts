@@ -29,7 +29,7 @@ interface ForecastCityInfo {
 	timezone: number;
 }
 
-interface ForecastList {
+export interface ForecastList {
 	dt: number;
 	dt_txt: string;
 	main: CurrentTemperatureInformation;
