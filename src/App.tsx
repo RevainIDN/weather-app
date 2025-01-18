@@ -25,7 +25,7 @@ export default function App() {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const apiKey = `64c63b06c0e83ae035a8daeecb963955`;
+      const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
       try {
         const responseCurrentWeather = await fetch(
