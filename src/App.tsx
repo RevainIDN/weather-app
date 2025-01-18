@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { CurrentCityDatas, ForecastCityDatas, transformCurrentWeatherData, transformForecastWeatherData } from './types'
+import { CurrentCityDatas, ForecastCityDatas, CitiDatas, transformCurrentWeatherData, transformForecastWeatherData, transformCitiDatas } from './types'
 import Header from './components/Header'
 import CurrentWeather from './components/CurrentWeather'
 import HourlyForecast from './components/HourlyForecast'
@@ -10,6 +10,7 @@ import DailyForecast from './components/DailyForecast'
 export default function App() {
   const [currentWeatherData, setCurrentWeatherData] = useState<CurrentCityDatas | null>(null);
   const [forecastWeatherData, setForecastWeatherData] = useState<ForecastCityDatas | null>(null);
+  const [otherCitiesData, setOtherCitiesData] = useState<CitiDatas[]>([]);
   const [currentCity, setCurrentCity] = useState<string>('London');
   const [units, setUnits] = useState<'metric' | 'imperial'>('metric');
 
@@ -23,10 +24,10 @@ export default function App() {
     setUnits(e.target.checked ? 'imperial' : 'metric');
   }
 
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-
       try {
         const responseCurrentWeather = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?units=${units}&lang=en&q=${currentCity}&appid=${apiKey}`
@@ -50,8 +51,30 @@ export default function App() {
 
     fetchWeatherData();
   }, [currentCity, units])
-  console.log(currentWeatherData);
-  console.log(forecastWeatherData);
+
+  useEffect(() => {
+    const fetchOrtherCitiesData = async () => {
+      try {
+        const responseFirstCityWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=${units}&lang=en&q=New York&appid=${apiKey}`);
+        const responseSecondCityWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=${units}&lang=en&q=Copenhagen&appid=${apiKey}`);
+        const responseThirdCityWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=${units}&lang=en&q=Ho Chi Minh City&appid=${apiKey}`);
+
+        const firstCityData = await responseFirstCityWeather.json();
+        const secondCityData = await responseSecondCityWeather.json();
+        const thirdCityData = await responseThirdCityWeather.json();
+
+        const transformedFirstCityData = transformCitiDatas(firstCityData);
+        const transformedSecondCityData = transformCitiDatas(secondCityData);
+        const transformedThirdCityData = transformCitiDatas(thirdCityData);
+
+        setOtherCitiesData([transformedFirstCityData, transformedSecondCityData, transformedThirdCityData])
+      } catch (error) {
+        console.error('An error occurred while retrieving data: ', error);
+      }
+    }
+
+    fetchOrtherCitiesData();
+  }, [units])
 
   return (
     <div className='weather-app'>
@@ -69,7 +92,9 @@ export default function App() {
         />
       </div>
       <div className='second-weather-forecast'>
-        <CityWeather />
+        <CityWeather
+          otherCitiesData={otherCitiesData}
+        />
         <DailyForecast />
       </div>
     </div>
