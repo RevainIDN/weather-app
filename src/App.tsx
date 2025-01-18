@@ -38,7 +38,7 @@ export default function App() {
         setCurrentWeatherData(transformedCurrentData);
 
         const responseForecast = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?units=${units}&q=${currentCity}&appid=${apiKey}`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&units=metric&cnt=40&appid=${apiKey}`
         );
         const forecastData = await responseForecast.json();
 
@@ -95,7 +95,9 @@ export default function App() {
         <CityWeather
           otherCitiesData={otherCitiesData}
         />
-        <DailyForecast />
+        <DailyForecast
+          forecastWeatherData={forecastWeatherData}
+        />
       </div>
     </div>
   )
