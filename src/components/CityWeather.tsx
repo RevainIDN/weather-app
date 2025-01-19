@@ -20,7 +20,7 @@ export default function CityWeather({ otherCitiesData }: CityWeatherProps) {
 		<div className='city-weather'>
 			<h1 className='forecast-title'>Other large cities</h1>
 			<ul className='cities-list'>
-				{otherCitiesData ? (
+				{otherCitiesData.length > 0 ? (
 					otherCitiesData.map((city, index) => (
 						<li key={index} className='city-item'>
 							<div className='city-country-info'>
@@ -35,7 +35,9 @@ export default function CityWeather({ otherCitiesData }: CityWeatherProps) {
 						</li>
 					))
 				) : (
-					<p>No weather in other cities</p>
+					<div className='load-cont'>
+						<div className='load'></div>
+					</div>
 				)}
 			</ul>
 		</div>

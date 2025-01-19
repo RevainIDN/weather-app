@@ -27,7 +27,9 @@ export default function HourlyForecast({ forecastWeatherData }: HourlyForecastPr
 					)
 				})
 			) : (
-				<p>No hourly forecast</p>
+				<div className='load-cont'>
+					<div className='load'></div>
+				</div>
 			)}
 		</ul>
 	)
