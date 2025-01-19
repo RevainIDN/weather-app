@@ -52,6 +52,25 @@ export interface CitiDatas {
 	weather: CurrentWeatherInformation[];
 }
 
+interface MinMaxTemp {
+	maxtemp_c: number;
+	maxtemp_f: number;
+	mintemp_c: number;
+	mintemp_f: number;
+}
+
+interface ForecastMinMaxTempArray {
+	day: MinMaxTemp;
+}
+
+interface ForecastMinMaxTemp {
+	forecastday: ForecastMinMaxTempArray[];
+}
+
+export interface MinMaxTempDatas {
+	forecast: ForecastMinMaxTemp;
+}
+
 export function transformCurrentWeatherData(data: any): CurrentCityDatas {
 	return {
 		dt: data.dt,
@@ -111,4 +130,19 @@ export function transformCitiDatas(data: any): CitiDatas {
 			main: item.main,
 		})),
 	};
+}
+
+export function transformMinMaxTempDatas(data: any): MinMaxTempDatas {
+	return {
+		forecast: {
+			forecastday: data.forecast.forecastday.map((item: any) => ({
+				day: {
+					maxtemp_c: item.day.maxtemp_c,
+					maxtemp_f: item.day.maxtemp_f,
+					mintemp_c: item.day.mintemp_c,
+					mintemp_f: item.day.mintemp_f,
+				}
+			}))
+		},
+	}
 }
