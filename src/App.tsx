@@ -57,7 +57,7 @@ export default function App() {
   useEffect(() => {
     const fetchMinMaxTempData = async () => {
       try {
-        const responseMinMaxTemp = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${secondApiKey}&q=${currentCity}&days=5&aqi=no&alerts=yes`);
+        const responseMinMaxTemp = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${secondApiKey}&q=${currentCity}&days=5&aqi=no&alerts=yes`);
         const minMaxTempData = await responseMinMaxTemp.json();
 
         const transformedMinMaxTempData = transformMinMaxTempDatas(minMaxTempData);
