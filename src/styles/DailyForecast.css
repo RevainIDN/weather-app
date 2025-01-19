@@ -59,6 +59,7 @@
 	width: 100%;
 	padding: 3px 0;
 	border-radius: 16px;
+	overflow: hidden;
 }
 
 .forecast-under-scale {

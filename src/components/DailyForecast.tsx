@@ -1,12 +1,14 @@
 import '../styles/DailyForecast.css'
 import { useState, useEffect } from 'react';
-import { ForecastCityDatas, ForecastList } from '../types'
+import { ForecastCityDatas, ForecastList, MinMaxTempDatas } from '../types'
 
 interface DailyForecastProps {
 	forecastWeatherData: ForecastCityDatas | null;
+	minMaxTemp: MinMaxTempDatas | null;
+	units: 'metric' | 'imperial';
 }
 
-export default function DailyForecast({ forecastWeatherData }: DailyForecastProps) {
+export default function DailyForecast({ forecastWeatherData, minMaxTemp, units }: DailyForecastProps) {
 	const [fiveDayForecast, setFiveDayForecast] = useState<ForecastList[]>([]);
 	const [overallMinTemp, setOverallMinTemp] = useState<number | null>(null);
 	const [overallMaxTemp, setOverallMaxTemp] = useState<number | null>(null);
@@ -21,15 +23,21 @@ export default function DailyForecast({ forecastWeatherData }: DailyForecastProp
 				forecastWeatherData.list[32]
 			];
 			setFiveDayForecast(fiveDayData);
+		}
+	}, [forecastWeatherData]);
 
-			const temperatures = fiveDayData.flatMap((forecast) => [forecast.main.temp_min, forecast.main.temp_max]);
-			const overallMinTemp = Math.min(...temperatures);
-			const overallMaxTemp = Math.max(...temperatures);
+	useEffect(() => {
+		if (minMaxTemp && minMaxTemp.forecast.forecastday.length > 0) {
+			const allMinTemps = minMaxTemp.forecast.forecastday.map((day) => day.day.mintemp_c);
+			const allMaxTemps = minMaxTemp.forecast.forecastday.map((day) => day.day.maxtemp_c);
+
+			const overallMinTemp = Math.min(...allMinTemps);
+			const overallMaxTemp = Math.max(...allMaxTemps);
 
 			setOverallMinTemp(overallMinTemp);
 			setOverallMaxTemp(overallMaxTemp);
 		}
-	}, [forecastWeatherData]);
+	}, [minMaxTemp]);
 
 	function getDayName(dt: number, timezone: number): string {
 		const utcTime = new Date(dt * 1000);
@@ -45,13 +53,20 @@ export default function DailyForecast({ forecastWeatherData }: DailyForecastProp
 		<div className='daily-forecast'>
 			<h1 className='forecast-title'>5-day forecast</h1>
 			<ul className='daily-forecast-list'>
-				{fiveDayForecast ? (
+				{fiveDayForecast.length > 0 ? (
 					fiveDayForecast.map((forecast, index) => {
 						if (overallMinTemp === null || overallMaxTemp === null) return null;
 
+						const dayData = minMaxTemp?.forecast.forecastday[index];
 						const range = overallMaxTemp - overallMinTemp;
-						const left = range > 0 ? ((forecast.main.temp_min - overallMinTemp) / range) * 100 : 0;
-						const width = range > 0 ? ((forecast.main.temp_max - forecast.main.temp_min) / range) * 100 : 0;
+						const normalizedMinTemp = overallMinTemp !== null ? overallMinTemp : 0;
+						const normalizedRange = range > 0 ? range : 1;
+
+						const left = ((dayData?.day.mintemp_c || 0) - normalizedMinTemp) / normalizedRange * 100;
+						const width = ((dayData?.day.maxtemp_c || 0) - (dayData?.day.mintemp_c || 0)) / normalizedRange * 100;
+
+						const minScaleWidth = 2;
+						const adjustedWidth = width < minScaleWidth ? minScaleWidth : width;
 
 						return (
 							<li key={index} className='daily-forecast-item'>
@@ -63,23 +78,29 @@ export default function DailyForecast({ forecastWeatherData }: DailyForecastProp
 									</div>
 								</div>
 								<div className='forecast-degrees-cont'>
-									<p className='forecast-degree forecast-degree-min'>{Math.round(forecast.main.temp_min)}°</p>
+									<p className='forecast-degree forecast-degree-min'>{units === 'metric'
+										? Math.round(dayData?.day.mintemp_c || 0)
+										: Math.round(dayData?.day.mintemp_f || 0)}°</p>
 									<span className='forecast-scale'>
 										<span
 											className='forecast-under-scale'
 											style={{
 												left: `${left}%`,
-												width: `${width}%`
+												width: `${adjustedWidth}%`
 											}}
 										></span>
 									</span>
-									<p className='forecast-degree forecast-degree-max'>{Math.round(forecast.main.temp_max)}°</p>
+									<p className='forecast-degree forecast-degree-max'>{units === 'metric'
+										? Math.round(dayData?.day.maxtemp_c || 0)
+										: Math.round(dayData?.day.maxtemp_f || 0)}°</p>
 								</div>
 							</li>
 						)
 					})
 				) : (
-					<p>No daily forecast</p>
+					<div className='load-cont'>
+						<div className='load'></div>
+					</div>
 				)}
 			</ul>
 		</div>
